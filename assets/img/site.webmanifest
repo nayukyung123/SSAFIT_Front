@@ -1,0 +1,17 @@
+{
+  "name": "SSAFIT",
+  "short_name": "SSAFIT",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#63c36e",
+  "icons": [
+    {
+      "src": "./assets/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
