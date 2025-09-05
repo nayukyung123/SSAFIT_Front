@@ -23,7 +23,7 @@ export function openAiChatModal() {
             <div class="collapse" id="${id}-keyarea">
               <div class="input-group mb-2">
                 <span class="input-group-text">GEMINI API KEY</span>
-                <input id="${id}-apikey" type="password" class="form-control" placeholder="AIza..." />
+                <input id="${id}-apikey" type="password" class="form-control" placeholder="API KEY를 입력해주세요" />
                 <button class="btn btn-outline-primary" id="${id}-savekey">저장</button>
               </div>
               <div class="form-text">키가 없으면 모의 코치 응답이 제공됩니다.</div>

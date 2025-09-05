@@ -41,7 +41,7 @@ export async function generate(messages) {
     const mod = await import('https://esm.sh/@google/generative-ai');
     const genAI = new mod.GoogleGenerativeAI(key);
     const model = genAI.getGenerativeModel({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.5-flash',
       systemInstruction: { role: 'system', parts: [{ text: SYS_PROMPT }] }
     });
     const mapped = messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }));
