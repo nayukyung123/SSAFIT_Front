@@ -40,13 +40,15 @@ export async function generate(messages) {
   try {
     const mod = await import('https://esm.sh/@google/generative-ai');
     const genAI = new mod.GoogleGenerativeAI(key);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const history = [
-      { role: 'user', parts: [{ text: SYS_PROMPT }] },
-      ...messages.map(m => ({ role: m.role, parts: [{ text: m.content }] })),
-    ];
-    const chat = model.startChat({ history });
-    const result = await chat.sendMessage(messages[messages.length - 1].content);
+    const model = genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      systemInstruction: { role: 'system', parts: [{ text: SYS_PROMPT }] }
+    });
+    const mapped = messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] }));
+    const past = mapped.slice(0, Math.max(0, mapped.length - 1));
+    const last = mapped[mapped.length - 1] || { role: 'user', parts: [{ text: '' }] };
+    const chat = model.startChat({ history: past });
+    const result = await chat.sendMessage(last.parts[0].text);
     const text = result.response?.text?.() || '';
     return text || '(응답이 비어있어요)';
   } catch (e) {

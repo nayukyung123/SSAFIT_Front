@@ -6,7 +6,7 @@ SSAFIT — Frontend Only (LocalStorage + Bootstrap + Vanilla JS)
 
 주요 기술
 - UI: Bootstrap 5.x, Bootstrap Icons
-- 날짜: day.js, (선택) FullCalendar 6 (달력 고급 UI)
+- 날짜: day.js, FullCalendar 6
 - 로직: Vanilla JS(ES Modules), LocalStorage
 - AI(옵션): Google Generative AI Web SDK(esm) — 사용자 제공 API 키로만 호출
 
@@ -52,7 +52,7 @@ SSAFIT — Frontend Only (LocalStorage + Bootstrap + Vanilla JS)
 - 상단 네비에도 “데이터” 링크가 있어 언제든 접근 가능
 
 AI 코치(옵션)
-- 우측 하단의 동그란 버튼 → AI 채팅 모달
+- 우측 하단의 채팅 버튼 → AI 채팅 모달
 - API 키 입력 필수: 모달 상단 “API 키” 버튼으로 Gemini API Key를 입력/저장(LocalStorage: `ssafit:ai.key`).
 - 키가 없으면 모의 코치 규칙으로 간단 응답(전신/하체/코어 추천 등)
 - AI 응답에 추천이 포함되면 “전신/하체/코어 루틴 계획 추가” 버튼이 자동 노출 → 오늘 일정으로 즉시 추가

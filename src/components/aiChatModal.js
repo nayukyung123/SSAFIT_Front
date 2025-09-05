@@ -32,7 +32,7 @@ export function openAiChatModal() {
             <div class="messages" id="${id}-msgs" aria-live="polite"></div>
             <div class="input-group">
               <input id="${id}-input" class="form-control" placeholder="운동 루틴/계획을 물어보세요" />
-              <button class="btn btn-primary" id="${id}-send"><i class="bi bi-send"></i></button>
+              <button class="btn btn-primary" id="${id}-send" type="button"><i class="bi bi-send"></i></button>
             </div>
           </div>
         </div>
@@ -90,6 +90,9 @@ export function openAiChatModal() {
   async function onSend() {
     const q = input.value.trim()
     if (!q) return
+    const now = Date.now()
+    if (q === lastSentText && now - lastSentAt < 600) return
+    lastSentText = q; lastSentAt = now
     input.value = ''
     append('user', q)
     history.push({ role: 'user', content: q })
@@ -105,8 +108,17 @@ export function openAiChatModal() {
     } finally { send.disabled = false }
   }
 
+  // IME(한글 등) 조합 입력 중 Enter로 인한 중복 전송 방지 + 디바운스
+  let composing = false
+  input.addEventListener('compositionstart', () => { composing = true })
+  input.addEventListener('compositionend', () => { composing = false })
   send.addEventListener('click', onSend)
-  input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); } })
+  let lastSentText = ''
+  let lastSentAt = 0
+  input.addEventListener('keyup', (e) => {
+    if (e.isComposing || composing) return
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); onSend(); }
+  })
 
   el.addEventListener('hidden.bs.modal', () => el.remove())
   modal.show()
